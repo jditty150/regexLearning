@@ -8,7 +8,7 @@ public class regexLearning {
 	{
 		String exampleString = "Professor Finished In 6 Hours Fuck You Professor";
 		String addressStuff = "Jinesh Shah NY  15689   CA  AK  (518)555-7986  jineshshah101@gmail.com";
-		String strangeString= ""
+		String strangeString= "1Z aaaaaaaaaaaaa ***** **** {{{{  {{ {";
 		
 		// where the actual regex will be most likely
 		// [A-Za-z] {2,20}  \\w{2.20}
@@ -34,7 +34,8 @@ public class regexLearning {
 		// if you put + inside regular expression it means whatever proceeds must occur 1 or more times
 		// if using . + * [] {} () | \ ^ ? requires backslash
 		
-		
+		regexChecker("(\\{{1,})", strangeString);
+		regexChecker("\\{+)", strangeString);
 	}
 	// making the regex work in a seperate method 
 	public static void regexChecker(String theRegex, String str2check)
@@ -54,9 +55,9 @@ public class regexLearning {
 			  
 			}
 			// this is to get the start regex
-			System.out.println("Start index: " + regexMatcher.start());
+			System.out.println("Starting at Position " + regexMatcher.start());
 			// this is to get the end regex
-			System.out.println("End Index: " + regexMatcher.end());
+			System.out.println("Ending at Position " + regexMatcher.end());
 		}
 	
 	}
