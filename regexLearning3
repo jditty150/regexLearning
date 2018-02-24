@@ -1,0 +1,89 @@
+import java.util.regex.*;
+// must put for regular expression
+
+
+public class regexLearning {
+
+	public static void main(String[] args)
+	{
+		String exampleString = "Professor Finished In 6 Hours Fuck You Professor";
+		String addressStuff = "Jinesh Shah NY  15689   CA  AK  (518)555-7986  monkeydluffy@gmail.com";
+		String strangeString= "1Z aaaaaaaaaaaaa ***** **** {{{{  {{ {";
+		
+		// where the actual regex will be most likely
+		// [A-Za-z] {2,20}  \\w{2.20}
+		// the [] is with the letters while the {} tells how many characters in length
+		regexChecker("\\s[A-Za-z]{2,20}\\s", exampleString);
+
+		// \\d meaning looking for characters with lowercase d
+		// \\D meaning looking for characters with uppercase D
+		// {5} look for it 5 times
+		
+		// how to look for zip codes which is 5 digits long
+		regexChecker("\\s\\d{5}\\s", addressStuff);
+		
+		//2 characters that start with a C or A
+		// A[KLRZ]|C[AOT]
+		// those are states that start with the letter A or C with the possilb combinations
+		// | this means to also look for A
+		
+		regexChecker("A[KLRZ]|C[AOT]", addressStuff);
+		
+		// how to put a regex where you want a minimum but no maximum
+		// ex: {5,} 5 is the min but no max specified
+		// if you put + inside regular expression it means whatever proceeds must occur 1 or more times
+		// if using . + * [] {} () | \ ^ ? requires backslash
+		
+		regexChecker("(\\{{1,})", strangeString);
+		// they are both the same {1,} and {+ are the same because + is 1 or more
+		regexChecker("(\\{+)", strangeString);
+		// say you wanted to find anything in the string but a new line u need to put .
+		// . means anything except new line
+		// means that there is 5 of anything in that string
+		// in output when using . sometimes u get something like "a *" because the period also matches spaces
+		regexChecker(".{5}", strangeString);
+		
+		// \\w[A-Za-z0-9_]
+		// anything is w follows that word type character
+		// W is anything not in w
+		// \\W
+		// * to search for something that matches for 0 or more times
+		
+		regexChecker("\\w*", strangeString);
+		
+		// how to put in email address as regex
+		// monkeydluffy@gmail.com
+		// normally in email address you potentially have upper and lower case letters and numbers
+		// [A-Za-z0-9._%-]+@
+		// need + because we always need to have 1 or more for emails 
+		// everything before @ symbol is what could be in the username
+		// everything after @ and before . symbol is what could be as the actual email source
+		// everything after . symbol is normally the com part where we make sure it only has 2-4 characters cause only 3 letters
+		regexChecker("[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[A-Za-z]{2,4}", addressStuff);
+	}
+	// making the regex work in a seperate method 
+	public static void regexChecker(String theRegex, String str2check)
+	{
+		// create a pattern and have a string that will stand in for regular expression
+		Pattern checkRegex = Pattern.compile(theRegex);
+		// what you use to match the regex
+		Matcher regexMatcher = checkRegex.matcher(str2check);
+	
+		// find all the matches for the regex so create a while loop
+		while(regexMatcher.find())
+		{ // find to kick out all of the matches
+			if(regexMatcher.group().length() != 0)
+			{ // making sure the string that is kicked out has a string
+			  System.out.println(regexMatcher.group().trim());
+			// trim gets rid of white space
+			  
+			}
+			// this is to get the start regex
+			System.out.println("Starting at Position " + regexMatcher.start());
+			// this is to get the end regex
+			System.out.println("Ending at Position " + regexMatcher.end());
+		}
+	
+	}
+	
+}
